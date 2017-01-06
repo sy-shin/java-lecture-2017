@@ -27,6 +27,12 @@ public class User {
 	
 	private String email;
 	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getUserId() {
 		return userId;
 	}

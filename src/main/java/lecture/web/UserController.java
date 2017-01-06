@@ -28,4 +28,16 @@ public class UserController {
 		model.addAttribute("users", userRepository.findAll());
 		return "user/list";
 	}
+	
+	@GetMapping("/users/update")
+	public String updateForm(String id, Model model){
+		model.addAttribute("id",id);
+		return "redirect:/users/update";
+	}
+	
+	@PostMapping("/users/update")
+	public void update(User user){
+		User idCheck = userRepository.findOne(user.getId());
+		System.out.println(idCheck.getName());
+	}
 }
