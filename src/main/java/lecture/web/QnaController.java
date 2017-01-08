@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,6 +20,11 @@ public class QnaController {
 	
 	@Autowired
 	private QuestionRepository questionRepository;
+	
+	@GetMapping("/form")
+	public String form(){
+		return "/qna/form";
+	}
 	
 	@PostMapping("")
 	public String create(Question question){
@@ -35,8 +41,14 @@ public class QnaController {
 	
 	@GetMapping("")
 	public String list(Model model){
-		System.out.println("***"+questionRepository.findAll());
 		model.addAttribute("questions",questionRepository.findAll());
 		return "redirect:/";
+	}
+	
+	@GetMapping("{id}/show")
+	public String show(@PathVariable Long id, Model model){
+		Question question = questionRepository.findOne(id);
+		model.addAttribute("question", question);
+		return "/qna/show";
 	}
 }

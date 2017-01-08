@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,6 +16,12 @@ import lecture.domain.UserRepository;
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
+	
+	@GetMapping("/form")
+	public String form(){
+		return "/user/form";
+	}
+	
 	
 	@PostMapping("")
 	public String create(User user){
@@ -28,16 +35,19 @@ public class UserController {
 		model.addAttribute("users", userRepository.findAll());
 		return "user/list";
 	}
-	
-	@GetMapping("/users/update")
-	public String updateForm(String id, Model model){
-		model.addAttribute("id",id);
-		return "redirect:/users/update";
+	@GetMapping("{id}/updateForm")
+	public String updateForm(@PathVariable Long id, Model model){
+		model.addAttribute("user", userRepository.findOne(id));
+		return "/user/updateForm";
 	}
 	
-	@PostMapping("/users/update")
-	public void update(User user){
-		User idCheck = userRepository.findOne(user.getId());
-		System.out.println(idCheck.getName());
+	@PostMapping("{id}/update")
+	public String update(@PathVariable Long id, User user){
+		User originUser = userRepository.findOne(id);
+		if(originUser.getPassword().equals(user.getPassword())){
+			originUser.update(user);
+			userRepository.save(originUser);
+		}
+		return "redirect:/users";
 	}
 }

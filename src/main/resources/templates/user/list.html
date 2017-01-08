@@ -21,10 +21,10 @@
               {{#users}}
                 <tr>
                     <th scope="row">1</th> 
-                    <td>{{userId}}</td> 
+                    <td>{{userId}}</a>
                     <td>{{name}}<!-- 자바 리플렉시라는 애가 있어서 getter 없어도 가져옹ㄹ 수 있ㅇ --></td> 
                     <td>{{email}}</td>
-                    <td><a href="/users/update" class="btn btn-success" role="button">수정</a></td>
+                    <td><a href="/users/{{id}}/updateForm" class="btn btn-success" role="button">수정</a></td>
                 </tr>
                {{/users}}
               </tbody>
