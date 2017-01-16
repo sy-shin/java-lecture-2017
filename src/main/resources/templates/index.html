@@ -2,57 +2,57 @@
 <html lang="kr">
 {{>/include/header}}
 <body>
-{{>/include/navigation-bar}}
+	{{>/include/navigation-bar}}
 
-<div class="container" id="main">
-   <div class="col-md-12 col-sm-12 col-lg-10 col-lg-offset-1">
-      <div class="panel panel-default qna-list">
-          <ul class="list">
-          {{#questions}}
-              <li>
-                  <div class="wrap">
-                      <div class="main">
-                          <strong class="subject">
-                              <a href="/questions/{{id}}/show">{{title}}</a>
-                          </strong>
-                          <div class="auth-info">
-                              <i class="icon-add-comment"></i>
-                              <span class="time">{{time}}</span>
-                              <a href="./user/profile.html" class="author">{{writer}}</a>
-                          </div>
-                          <div class="reply" title="댓글">
-                              <i class="icon-reply"></i>
-                              <span class="point">{{id}}</span>
-                          </div>
-                      </div>
-                  </div>
-              </li>
-              {{/questions}}
-          </ul>
-          
-          <div class="row">
-              <div class="col-md-3"></div>
-              <div class="col-md-6 text-center">
-                  <ul class="pagination center-block" style="display:inline-block;">
-                      <li><a href="#">«</a></li>
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                      <li><a href="#">»</a></li>
-                </ul>
-              </div>
-              <div class="col-md-3 qna-write">
-                  <a href="/questions/form" class="btn btn-primary pull-right" role="button">질문하기</a>
-              </div>
-          </div>
-        </div>
-    </div>
-</div>
+	<div class="container" id="main">
+		<div class="col-md-12 col-sm-12 col-lg-10 col-lg-offset-1">
+			<div class="panel panel-default qna-list">
+				<ul class="list">
+					{{#questions}}
+					<li>
+						<div class="wrap">
+							<div class="main">
+								<strong class="subject"> <a href="/questions/{{id}}/show">{{title}}</a>
+								</strong>
+								<div class="auth-info">
+									<i class="icon-add-comment"></i> <span class="time">{{time}}</span>
+									<a href="./user/profile.html" class="author">{{writer.name}}</a>
+								</div>
+								<div class="reply" title="댓글">
+									<i class="icon-reply"></i> <span class="point">{{id}}</span>
+								</div>
+							</div>
+						</div>
+					</li> {{/questions}}
+				</ul>
 
-<!--login modal-->
-<!--
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-6 text-center">
+						<ul class="pagination center-block" style="display: inline-block;">
+							<li><a href="#">«</a></li>
+							<li><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#">»</a></li>
+						</ul>
+					</div>
+					{{#loginUser}}
+					<div class="col-md-3 qna-write">
+						<a href="/questions/form" class="btn btn-primary pull-right"
+							role="button">질문하기</a>
+					</div>
+					{{/loginUser}}
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--login modal-->
+	<!--
 <div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
   <div class="modal-content">
@@ -86,8 +86,8 @@
 </div>
 -->
 
-<!--register modal-->
-<!--
+	<!--register modal-->
+	<!--
 <div id="registerModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
   <div class="modal-content">
@@ -128,9 +128,9 @@
 </div>
 -->
 
-<!-- script references -->
-<script src="js/jquery-2.2.0.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
-	</body>
+	<!-- script references -->
+	<script src="js/jquery-2.2.0.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/scripts.js"></script>
+</body>
 </html>

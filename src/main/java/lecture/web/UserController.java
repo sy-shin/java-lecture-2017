@@ -1,5 +1,7 @@
 package lecture.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,45 +11,61 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lecture.domain.User;
-import lecture.domain.UserRepository;
+import lecture.service.UserService;
 
 @Controller
-@RequestMapping("/users")//대표 url 이러면 밑에 ("")얘네들은 얘를 따름
+@RequestMapping("/users")
 public class UserController {
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 	
 	@GetMapping("/form")
 	public String form(){
 		return "/user/form";
 	}
 	
-	
 	@PostMapping("")
-	public String create(User user){
-		System.out.println("User : "+user);
-		userRepository.save(user);
-		return "redirect:/users";//리다이렉트하여서 list로 보냄
+	public String input(User user){
+		userService.input(user);
+		return "redirect:/users";
 	}
 	
 	@GetMapping("")
 	public String list(Model model){
-		model.addAttribute("users", userRepository.findAll());
+		model.addAttribute("users", userService.findAll());
 		return "user/list";
 	}
+	
 	@GetMapping("{id}/updateForm")
 	public String updateForm(@PathVariable Long id, Model model){
-		model.addAttribute("user", userRepository.findOne(id));
+		model.addAttribute("user", userService.findOne(id));
 		return "/user/updateForm";
 	}
 	
 	@PostMapping("{id}/update")
 	public String update(@PathVariable Long id, User user){
-		User originUser = userRepository.findOne(id);
-		if(originUser.getPassword().equals(user.getPassword())){
-			originUser.update(user);
-			userRepository.save(originUser);
-		}
+		userService.update(id, user);
 		return "redirect:/users";
+	}
+	
+	@GetMapping("/loginForm")
+	public String loginForm(){
+		return "/user/login";
+	}
+	
+	@PostMapping("/login")
+	public String login(String userId, String password, HttpSession session){
+		User dbUser = userService.findByUserId(userId);
+		
+		if(userService.checkPassword(dbUser, password))
+			session.setAttribute("loginUser", dbUser);
+		
+		return "redirect:/";
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "redirect:/";
 	}
 }
