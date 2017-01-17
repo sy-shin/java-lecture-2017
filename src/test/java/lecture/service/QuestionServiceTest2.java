@@ -1,4 +1,4 @@
-package lecture.service;
+/*package lecture.service;
 
 import static org.junit.Assert.assertEquals;
 
@@ -110,4 +110,4 @@ public class QuestionServiceTest2 {
 		System.out.println("FLAG"+deleteFlag);
 		assertEquals(deleteFlag,false);
 	}
-}
+}*/

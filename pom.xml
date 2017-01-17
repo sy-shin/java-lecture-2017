@@ -6,7 +6,7 @@
 	<groupId>java-lecture-2017</groupId>
 	<artifactId>lecture-01</artifactId>
 	<version>1.0.0</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>lecture-01</name>
 	<description>Demo project for Spring Boot</description>
@@ -25,6 +25,14 @@
 	</properties>
 
 	<dependencies>
+		<!-- tomcat으로 배포 -->
+		<!-- 임베디드 톰캣을 실행하는겨 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- mockito -->
 		<dependency>
 			<groupId>org.mockito</groupId>
